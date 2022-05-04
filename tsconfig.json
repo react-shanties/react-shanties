@@ -6,16 +6,14 @@
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "module": "commonjs",
-    "jsx": "react",
     "moduleResolution": "node",
     "noImplicitAny": true,
-    "incremental": true
+    "incremental": true,
+    "jsx": "react",
+    "outDir": "lib"
   },
-  "include": [
-    "**/*.ts",
-    "**/*.tsx",
-  ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "**/*.spec*"
   ]
 }

@@ -2,11 +2,11 @@ module.exports = {
   testEnvironment: 'node',
   clearMocks: true,
   roots: [
-    './highOrderComponents',
+    './src',
   ],
   collectCoverageFrom: [
-    './highOrderComponents/**/*.ts',
-    './highOrderComponents/**/*.tsx',
+    './src/**/*.ts',
+    './src/**/*.tsx',
   ],
   coverageDirectory: './.build/coverage',
 };
