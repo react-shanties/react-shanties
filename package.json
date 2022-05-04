@@ -10,7 +10,8 @@
     "test": "wireit",
     "test:coverage": "wireit",
     "lint": "wireit",
-    "build": "wireit"
+    "build": "wireit",
+    "publish": "run-s test:coverage lint build"
   },
   "wireit": {
     "test": {
