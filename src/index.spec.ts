@@ -26,18 +26,32 @@ describe('index', () => {
       importing_react_shanties,
     },
     then: {
-      all_hocs_exported,
+      all_modules_exported,
+    },
+  });
+
+  test('all hooks exported', {
+    given: {
+      modules: modules('hooks'),
+    },
+    when: {
+      importing_react_shanties,
+    },
+    then: {
+      all_modules_exported,
     },
   });
 });
 
 type Context = {
+  module_type: string,
   modules: { [function_name: string]: any },
   index: any,
 };
 
 function modules(moduleType: string) {
   return async function (this: Context) {
+    this.module_type = moduleType;
     const modulePath = path.join(__dirname, moduleType);
     const files = fs.readdirSync(modulePath);
 
@@ -63,13 +77,13 @@ async function importing_react_shanties(this: Context) {
   this.index = await require('./index');
 }
 
-function all_hocs_exported(this: Context) {
+function all_modules_exported(this: Context) {
   withKey(forEach)(
     (fn: any, name: string) => {
       try {
         expect(this.index[name]).toBe(fn);
       } catch {
-        throw new Error(`HOC ${name} was not exported`);
+        throw new Error(`${this.module_type} ${name} was not exported`);
       }
     },
     this.modules,
