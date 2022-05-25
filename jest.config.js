@@ -9,4 +9,5 @@ module.exports = {
     './src/**/*.tsx',
   ],
   coverageDirectory: './.build/coverage',
+  preset: 'ts-jest',
 };
