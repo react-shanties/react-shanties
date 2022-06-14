@@ -7,7 +7,6 @@ import type { ComponentDefinition, ProviderList } from './withProviders';
 import withProviders, { composeComponents } from './withProviders';
 
 jest.mock('react');
-
 const mock_createElement = mocked(createElement);
 
 describe('with providers', () => {

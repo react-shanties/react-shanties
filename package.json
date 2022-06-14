@@ -1,6 +1,6 @@
 {
   "name": "@react-shanties/core",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "",
   "main": "lib/index.js",
   "files": [
@@ -67,16 +67,17 @@
     "@types/lodash": "^4.14.182",
     "@types/react": "^18.0.8",
     "@types/react-dom": "^18.0.3",
-    "jest": "^27.5.1",
+    "jest": "^28.1.1",
+    "jest-environment-jsdom": "^28.1.1",
     "jest-gwt": "^3.0.2",
-    "jest-mock": "^27.5.1",
-    "moredash": "^0.0.11",
+    "jest-mock": "^28.1.1",
+    "moredash": "^0.0.12",
     "npm-run-all": "^4.1.5",
     "react": "^18.0.0",
     "rimraf": "^3.0.2",
-    "ts-jest": "^27.1.5",
+    "ts-jest": "^28.0.5",
     "typescript": "^4.6.4",
-    "wireit": "^0.2.1"
+    "wireit": "^0.5.0"
   },
   "dependencies": {
     "lodash": "^4.17.21"
