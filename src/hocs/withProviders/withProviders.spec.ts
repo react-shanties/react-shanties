@@ -3,7 +3,10 @@ import { mocked } from 'jest-mock';
 import { createElement } from 'react';
 import type { FC, ReactElement } from 'react';
 
-import type { ComponentDefinition, ProviderList } from './withProviders';
+import type {
+  ComponentDefinition,
+  ProviderList,
+} from './withProviders';
 import withProviders, { composeComponents } from './withProviders';
 
 jest.mock('react');
@@ -63,14 +66,31 @@ describe('with providers', () => {
       app_has_props,
     },
   });
+
+  test('provider function', {
+    given: {
+      provider_function,
+    },
+    when: {
+      wrapping_app_with_PROVIDER_FUNCTION,
+    },
+    then: {
+      provider_function_gets_props,
+      app_has_props,
+    },
+  });
 });
 
-type P = {};
+type P = {
+  prop1: string,
+  prop2: number,
+};
 
 type Context = {
   app: ComponentDefinition<P>,
   app_props: P,
   components: ProviderList,
+  providerFunction: jest.Mock<ProviderList, [P]>,
 
   result: ReactElement | FC<P> | null,
   PseudoComponent: FC<P>,
@@ -84,6 +104,14 @@ const mock_components_map = {
 
 function mock_components(this: Context) {
   mock_createElement.mockImplementation(((n: string) => mock_components_map[n]) as any);
+}
+
+function provider_function(this: Context) {
+  this.providerFunction = jest.fn<ProviderList, [P]>(({
+    prop1,
+  }: P) => [
+    ['RootComponent', { prop1 }],
+  ]);
 }
 
 function no_providers(this: Context) {
@@ -117,7 +145,23 @@ function wrapping_app_with_providers(this: Context) {
     this.app,
   );
 
-  this.app_props = {};
+  this.app_props = {
+    prop1: 'value',
+    prop2: 2,
+  };
+  this.result = this.PseudoComponent(this.app_props);
+}
+
+function wrapping_app_with_PROVIDER_FUNCTION(this: Context) {
+  this.PseudoComponent = withProviders(
+    this.providerFunction,
+    this.app,
+  );
+
+  this.app_props = {
+    prop1: 'value',
+    prop2: 2,
+  };
   this.result = this.PseudoComponent(this.app_props);
 }
 
@@ -145,4 +189,11 @@ function app_is_last_child(this: Context) {
 
 function app_has_props(this: Context) {
   expect(mock_createElement.mock.calls[0][1]).toBe(this.app_props);
+}
+
+function provider_function_gets_props(this: Context) {
+  expect(this.providerFunction).toHaveBeenCalledWith({
+    prop1: 'value',
+    prop2: 2,
+  });
 }

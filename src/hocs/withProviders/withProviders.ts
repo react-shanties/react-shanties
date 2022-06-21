@@ -1,12 +1,19 @@
-import type { ComponentClass, FC, ReactElement } from 'react';
+import type {
+  ComponentClass,
+  FC,
+  ReactElement,
+} from 'react';
 import { createElement } from 'react';
 import {
   castArray,
+  isArray,
   isEmpty,
 } from 'lodash/fp';
 
 export type ComponentDefinition<T = any> = string | FC<T> | ComponentClass<T, any>;
 export type ProviderList = Array<[ComponentDefinition, any] | ComponentDefinition>;
+export type ProviderFunction<P> = (props: P) => ProviderList;
+export type ComposeComponents<P = any> = ProviderList | ProviderFunction<P>;
 
 export const composeComponents = (
   components: ProviderList,
@@ -27,11 +34,13 @@ export const composeComponents = (
 };
 
 export default <P extends object = {}>(
-  components: ProviderList,
+  components: ComposeComponents,
   root: ComponentDefinition<P>,
 ): FC<P> => (
   (props: P) => composeComponents([
-    ...components,
+    ...isArray(components)
+      ? components
+      : components(props),
     [root, props],
   ])
 );
