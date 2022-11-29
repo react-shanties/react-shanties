@@ -7,3 +7,4 @@ export { default as omitProps } from './hocs/omitProps';
 export { default as useAction } from './hooks/useAction';
 export { default as useCurry } from './hooks/useCurry';
 export { default as useDebounce } from './hooks/useDebounce';
+export { default as useToggle } from './hooks/useToggle';
