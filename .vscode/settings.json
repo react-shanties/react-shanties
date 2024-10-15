@@ -2,7 +2,7 @@
   "editor.formatOnSave": true,
   "eslint.format.enable": true,
   "editor.codeActionsOnSave": {
-    "source.fixAll": true,
+    "source.fixAll": "explicit"
   },
   "[javascript][typescript][javascriptreact][typescriptreact]": {
     "editor.tabSize": 2,
